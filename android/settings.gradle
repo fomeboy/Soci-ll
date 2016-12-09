@@ -1,0 +1,3 @@
+rootProject.name = 'Sociall'
+
+include ':app'
