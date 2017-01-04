@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NetInfo, TouchableHighlight, Text, View, Image, StyleSheet } from 'react-native'
+import { NativeModules, NetInfo, TouchableHighlight, Text, View, Image, StyleSheet } from 'react-native'
 import { styles } from './styles.js'
 import { ValidStatus } from '../../actions/enums.js'
 
@@ -11,8 +11,26 @@ export default class Welcome extends Component {
   }
 
   componentWillMount () {
-    NetInfo.addEventListener('change', this._handleConnectionInfo)
+    var AccountsManager = NativeModules.AccountsManager
+    var TwitterKitAPI = NativeModules.TwitterKitAPI
 
+    AccountsManager.getTwitterAccounts((error, accounts) => {
+      if (error) {
+        console.log('Error Javascript:' + error)
+      } else {
+        console.log('Accounts: ' + JSON.stringify(accounts))
+      }
+    })
+
+    TwitterKitAPI.getTweetById('20', (error, tweet) => {
+      if (error) {
+        console.log('Error a ir buscar o tweet:' + error)
+      } else {
+        console.log('Tweet: ' + tweet)
+      }
+    })
+
+    NetInfo.addEventListener('change', this._handleConnectionInfo)
     NetInfo.fetch().done((reach) => {
       this._handleConnectionInfo(reach)
     })

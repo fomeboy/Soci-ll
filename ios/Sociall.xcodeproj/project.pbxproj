@@ -23,6 +23,13 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		841A1A411DFF0198007E910A /* AccountsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 841A1A401DFF0198007E910A /* AccountsManager.m */; };
+		8441036E1E12A826002F02CA /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8441036A1E12A826002F02CA /* Fabric.framework */; };
+		8441036F1E12A826002F02CA /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8441036B1E12A826002F02CA /* TwitterKit.framework */; };
+		844103701E12A826002F02CA /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8441036C1E12A826002F02CA /* TwitterKitResources.bundle */; };
+		844103711E12A826002F02CA /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8441036D1E12A826002F02CA /* TwitterCore.framework */; };
+		844103731E12C278002F02CA /* TwitterKitAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 844103721E12C277002F02CA /* TwitterKitAPI.m */; };
+		8442472B1E0C25BD00A2D3E9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8442472A1E0C25BD00A2D3E9 /* Accounts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,6 +183,15 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		841A1A2E1DFF00FD007E910A /* AccountsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AccountsManager.h; path = AccountsManager/AccountsManager.h; sourceTree = "<group>"; };
+		841A1A401DFF0198007E910A /* AccountsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountsManager.m; path = ../AccountsManager.m; sourceTree = "<group>"; };
+		8441036A1E12A826002F02CA /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		8441036B1E12A826002F02CA /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		8441036C1E12A826002F02CA /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		8441036D1E12A826002F02CA /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		844103721E12C277002F02CA /* TwitterKitAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterKitAPI.m; sourceTree = "<group>"; };
+		844103741E12C2A9002F02CA /* TwitterKitAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TwitterKitAPI.h; path = TwitterKit.framework/TwitterKitAPI.h; sourceTree = "<group>"; };
+		8442472A1E0C25BD00A2D3E9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8442472B1E0C25BD00A2D3E9 /* Accounts.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -199,8 +216,11 @@
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				844103711E12A826002F02CA /* TwitterCore.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				8441036F1E12A826002F02CA /* TwitterKit.framework in Frameworks */,
+				8441036E1E12A826002F02CA /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,9 +307,14 @@
 		13B07FAE1A68108700A75B9A /* Sociall */ = {
 			isa = PBXGroup;
 			children = (
+				8441036C1E12A826002F02CA /* TwitterKitResources.bundle */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				841A1A2E1DFF00FD007E910A /* AccountsManager.h */,
+				841A1A401DFF0198007E910A /* AccountsManager.m */,
+				844103721E12C277002F02CA /* TwitterKitAPI.m */,
+				844103741E12C2A9002F02CA /* TwitterKitAPI.h */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -349,6 +374,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SociallTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				844247291E0C25BD00A2D3E9 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -361,6 +387,17 @@
 				00E356EE1AD99517003FC87E /* SociallTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		844247291E0C25BD00A2D3E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8441036D1E12A826002F02CA /* TwitterCore.framework */,
+				8441036B1E12A826002F02CA /* TwitterKit.framework */,
+				8441036A1E12A826002F02CA /* Fabric.framework */,
+				8442472A1E0C25BD00A2D3E9 /* Accounts.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,6 +429,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				844103361E129A9B002F02CA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -617,6 +655,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				844103701E12A826002F02CA /* TwitterKitResources.bundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,6 +677,19 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		844103361E129A9B002F02CA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run f62ed69e2c5666a3a612002cfd1794e6425afc06 644268f63de3fddc408cd72338eda24d52af3c0428f2b265f0e8bf998bcba66b";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -654,7 +706,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				841A1A411DFF0198007E910A /* AccountsManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				844103731E12C278002F02CA /* TwitterKitAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +773,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 5URBY2SW27;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -743,6 +801,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5URBY2SW27;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,

@@ -8,6 +8,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
