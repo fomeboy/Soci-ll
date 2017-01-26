@@ -16,6 +16,8 @@
 
 @interface AccountsManager : NSObject <RCTBridgeModule>
 
++ (ACAccount *)getTwitterAccount:(NSString *)userName;
+
 @end
 
 

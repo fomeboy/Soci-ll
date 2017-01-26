@@ -19,8 +19,7 @@
   NSURL *jsCodeLocation;
   
   #ifdef DEBUG
-    /*jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.7:8081/index.ios.bundle?platform=ios&dev=true"];*/
-    jsCodeLocation = [NSURL URLWithString:@"http://172.17.74.48:8081/index.ios.bundle?platform=ios&dev=true"];
+    jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.3:8081/index.ios.bundle?platform=ios&dev=true"];
   #else
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   #endif
@@ -30,15 +29,13 @@
                                                       moduleName:@"Sociall"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  //rootView.backgroundColor = [[UIColor alloc] initWithRed:1.5f green:1.2f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
-  [Fabric with:@[[Twitter class]]];
 
   return YES;
 }

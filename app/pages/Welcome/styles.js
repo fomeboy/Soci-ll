@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native'
+import { backgroundGray, statusTextGray, statusTextFont } from '../Styles/genericStyle.js'
 
 export const styles = StyleSheet.create({
   view: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#ffffff'
+    backgroundColor: backgroundGray
   },
   top: {
     flex: 1
@@ -27,12 +28,10 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   statustext: {
-    flex:1,
+    flex: 1,
     textAlign: 'center',
-    fontFamily: 'Helvetica Neue',
-    fontWeight: '400',
+    fontFamily: statusTextFont,
     fontSize: 20,
-    fontStyle: 'italic',
-    color: '#494949'
+    color: statusTextGray
   }
 })

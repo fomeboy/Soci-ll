@@ -31,27 +31,48 @@ RCT_EXPORT_METHOD(getTwitterAccounts:(RCTResponseSenderBlock)callback) {
                                               BOOL *stop) {
       ACAccount *acc=obj;
       [accountIds addObject: acc.username];
-       
-      /*
-      NSLog(@"description: %@", acc.accountDescription);
-      NSLog(@"username: %@", acc.username);
-      NSLog(@"type: %@", acc.accountType);
-      NSLog(@"credential: %@", acc.credential);
-      NSLog(@"identifier: %@", acc.identifier);
-      */
-      
-    }];
-    
+      }
+    ];
+        
     callback(@[[NSNull null], accountIds]);
     } else {
       if (error) {
         callback(@[@"Please add Twitter account on device settings", [NSNull null]]);
       } else {
+        // see what happens when there are severall accounts and none or more then one allow access
         callback(@[@"Please allow access to the app on settings", [NSNull null]]);
       }
     }
   }];
   
+}
+
+
++ (ACAccount *)getTwitterAccount:(NSString *)userName {
+  
+  __block ACAccount *res = nil;
+  ACAccountStore *account = [[ACAccountStore alloc] init];
+  ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier: ACAccountTypeIdentifierTwitter];
+  
+  [account requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
+    
+    if (granted) {
+      NSArray *twitterAccounts = [account accountsWithAccountType:accountType];
+      
+      [twitterAccounts enumerateObjectsUsingBlock:^(id obj,
+                                                    NSUInteger idx,
+                                                    BOOL *stop) {
+        ACAccount *acc=obj;
+        if([acc.username isEqual:userName]){
+          res = acc;
+          *stop = YES;
+        }
+      }];
+      
+    }
+  }];
+  NSLog(@"Account name: %@", res.username);
+  return res;
 }
 
 @end
