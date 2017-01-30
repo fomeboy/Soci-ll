@@ -1,1 +1,4 @@
 export const SET_STATUS = 'SET_STATUS'
+export const SET_ACCOUNT_MSG = 'SET_ACCOUNT_MSG'
+export const SET_SEL_ACCOUNT = 'SET_SEL_ACCOUNT'
+export const SET_ACCOUNTS = 'SET_ACCOUNTS'

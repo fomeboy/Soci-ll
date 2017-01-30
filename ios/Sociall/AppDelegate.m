@@ -19,7 +19,7 @@
   NSURL *jsCodeLocation;
   
   #ifdef DEBUG
-    jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.3:8081/index.ios.bundle?platform=ios&dev=true"];
+    jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.8:8081/index.ios.bundle?platform=ios&dev=true"];
   #else
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   #endif
@@ -29,7 +29,6 @@
                                                       moduleName:@"Sociall"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  //rootView.backgroundColor = [[UIColor alloc] initWithRed:1.5f green:1.2f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

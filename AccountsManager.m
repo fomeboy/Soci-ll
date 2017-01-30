@@ -37,10 +37,9 @@ RCT_EXPORT_METHOD(getTwitterAccounts:(RCTResponseSenderBlock)callback) {
     callback(@[[NSNull null], accountIds]);
     } else {
       if (error) {
-        callback(@[@"Please add Twitter account on device settings", [NSNull null]]);
+        callback(@[@"NO_TWT_ACCNT", [NSNull null]]);
       } else {
-        // see what happens when there are severall accounts and none or more then one allow access
-        callback(@[@"Please allow access to the app on settings", [NSNull null]]);
+        callback(@[@"NO_TWT_ACCSS", [NSNull null]]);
       }
     }
   }];
