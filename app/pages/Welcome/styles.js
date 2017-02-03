@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { background_color, text_color, account_msg_color, msg_text_color, status_text_font } from '../Styles/genericStyle.js'
+import { background_color, dark_text_color, account_msg_color, light_text_color, status_text_font } from '../Styles/genericStyle.js'
 
 export const styles = StyleSheet.create({
   view: {
@@ -11,11 +11,8 @@ export const styles = StyleSheet.create({
   top: {
     flex: 0.5
   },
-  settings: {
-    flex: 1
-  },
   logoTouch: {
-    flex: 3,
+    flex: 3.5,
     flexDirection: 'column',
     alignItems: 'center'
   },
@@ -32,11 +29,11 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: status_text_font,
     fontWeight: 'normal',
-    fontSize: 20,
-    color: msg_text_color
+    fontSize: 22,
+    color: light_text_color
   },
   status: {
-    flex: 4,
+    flex: 5,
     flexDirection: 'row',
     alignItems: 'flex-end'
   },
@@ -44,21 +41,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontFamily: status_text_font,
-    fontWeight: 'bold',
-    fontSize: 18, 
-    color: text_color
+    fontWeight: 'normal',
+    fontSize: 16,
+    color: light_text_color
   },
   pickerView: {
     flex: 1
   },
   picker: {
-    height: 100,
+    height: 90,
     marginTop: 0,
     paddingTop: 0,
     fontFamily: status_text_font,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     fontSize: 20,
-    color: msg_text_color,
-    width: 300
+    color: dark_text_color,
+    width: 250
   }
 })

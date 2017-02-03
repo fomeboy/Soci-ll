@@ -14,9 +14,11 @@
 #import "RCTBridgeModule.h"
 #import "RCTConvert.h"
 
+
+
 @interface AccountsManager : NSObject <RCTBridgeModule>
 
-+ (ACAccount *)getTwitterAccount:(NSString *)userName;
+//+ (void) AccountsWrapper:(NSString *)user executes:(void (^)(ACAccount* account))block;
 
 @end
 

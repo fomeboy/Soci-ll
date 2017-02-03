@@ -15,7 +15,6 @@ import { AccountMsgs } from '../../ui_msgs/enums.js'
 export default class Welcome extends Component {
   constructor (props) {
     super(props)
-    this._handlePress = this._handlePress.bind(this)
     this._handleLinking = this._handleLinking.bind(this)
     this._handleConnectionInfo = this._handleConnectionInfo.bind(this)
     this._handleAccountMsg = this._handleAccountMsg.bind(this)
@@ -59,11 +58,10 @@ export default class Welcome extends Component {
 
   _handleSelAccount (account) {
     console.log('SELECTIOOO:' + account)
-    this.props.handleSetSelAccount(account)
-  }
-
-  _handlePress () {
-    this.props.navigator.push({id: 2})
+    if (account !== '') {
+      this.props.handleSetSelAccount(account)
+      this.props.navigator.push({id: 2})
+    }
   }
 
   _handleLinking () {
@@ -90,27 +88,21 @@ export default class Welcome extends Component {
         <View style={styles.accountMsg}>
           <Text style={styles.accountMsgText}>{AccountMsgs[this.props.account_msg]}</Text>
         </View>
-        {this.props.accounts !== null && this.props.sel_account === null &&
-        <PickerIOS
-          style={styles.pickerView}
-          itemStyle={styles.picker}
-          selectedValue={this.props.sel_account}
-          onValueChange={(acc) => this._handleSelAccount(acc)}
-          >
-          <PickerItemIOS key={0} value={''} label={''}/>
-          { React.Children.map(this.props.accounts, (acc, i) => {
-            return <PickerItemIOS key={i + 1} value={acc} label={acc}/>
-          })
+        <View style={styles.pickerView}>
+          {this.props.accounts !== null &&
+            <PickerIOS
+              itemStyle={styles.picker}
+              selectedValue={this.props.sel_account}
+              onValueChange={(acc) => this._handleSelAccount(acc)}
+            >
+              <PickerItemIOS key={0} value={''} label={''}/>
+              { React.Children.map(this.props.accounts, (acc, i) => {
+                return <PickerItemIOS key={i + 1} value={acc} label={acc}/>
+              })
+              }
+            </PickerIOS>
           }
-        </PickerIOS>
-        }
-        {this.props.sel_account !== null &&
-        <Image
-          style={styles.settings}
-          resizeMode={'contain'}
-          source={require('./img/settings.png')}
-        />
-        }
+        </View>
         <View style={styles.status}>
           <Text style={styles.statustext}>{ValidStatus[this.props.status]}</Text>
         </View>

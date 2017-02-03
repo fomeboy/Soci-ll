@@ -46,32 +46,38 @@ RCT_EXPORT_METHOD(getTwitterAccounts:(RCTResponseSenderBlock)callback) {
   
 }
 
+/*
+//void (^AccountsWrapper)(NSString* user, void (^execBlock)(ACAccount* account)) = ^(NSString* user, void (^execBlock)(ACAccount* account)){
++ (void) AccountsWrapper:(NSString *)user executes:(void (^)(ACAccount* account))block {
 
-+ (ACAccount *)getTwitterAccount:(NSString *)userName {
-  
-  __block ACAccount *res = nil;
+  __block ACAccount *accObj = nil;
   ACAccountStore *account = [[ACAccountStore alloc] init];
   ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier: ACAccountTypeIdentifierTwitter];
   
   [account requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
     
-    if (granted) {
-      NSArray *twitterAccounts = [account accountsWithAccountType:accountType];
+    if (granted)
+    {
+      NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
       
-      [twitterAccounts enumerateObjectsUsingBlock:^(id obj,
-                                                    NSUInteger idx,
-                                                    BOOL *stop) {
+      [arrayOfAccounts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
         ACAccount *acc=obj;
-        if([acc.username isEqual:userName]){
-          res = acc;
+        
+        if([acc.username isEqual:user]){
+          accObj = acc;
           *stop = YES;
         }
+        
       }];
       
+      NSLog(@"ACCOBJ: %@", accObj);
+      
+      block(accObj);
     }
   }];
-  NSLog(@"Account name: %@", res.username);
-  return res;
+
 }
+*/
 
 @end
