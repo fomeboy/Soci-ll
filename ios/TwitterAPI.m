@@ -41,6 +41,7 @@ RCT_EXPORT_METHOD(postTweet:(NSString *)msg withUser:(NSString *)userName) {
 
 RCT_EXPORT_METHOD(getHomeTimelineForUser:(NSString * _Nonnull)userName returns:(RCTResponseSenderBlock)callback) {
 
+  __block ACAccount *twitterAccount;
   ACAccountStore *account = [[ACAccountStore alloc] init];
   ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier: ACAccountTypeIdentifierTwitter];
   
@@ -50,54 +51,46 @@ RCT_EXPORT_METHOD(getHomeTimelineForUser:(NSString * _Nonnull)userName returns:(
     {
       NSArray *arrayOfAccounts = [account
                                   accountsWithAccountType:accountType];
-      
-      
-      
-      if ([arrayOfAccounts count] > 0)
-      {
-        ACAccount *twitterAccount =
-        [arrayOfAccounts lastObject];
-        
-        
-        NSURL *requestURL = [NSURL
-                             URLWithString:@"https://api.twitter.com/1.1/statuses/home_timeline.json"];
-        //NSDictionary *params = @{@"count" : count, @"since_id" : sinceId, @"max_id" : maxId};
-        
-        SLRequest *postRequest = [SLRequest
-                                  requestForServiceType:SLServiceTypeTwitter
-                                  requestMethod:SLRequestMethodGET
-                                  URL:requestURL parameters:nil];
-        
-        postRequest.account = twitterAccount;
-        
-        [postRequest
-         performRequestWithHandler:^(NSData *responseData,
-                                     NSHTTPURLResponse *urlResponse, NSError *error)
-         {
-           NSLog(@"Twitter HTTP response: %i",
-                 [urlResponse statusCode]);
-           
-           NSMutableDictionary *responseDictionary  = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:nil];
-           NSLog(@"Response dictionary: %@", responseDictionary);
-           if (error) {
-             callback(@[@"NO_TWT_RES", [NSNull null]]);
-           } else {
-             callback(@[[NSNull null], responseDictionary]);
-           }
-           
-         }];
+  
+      if ([arrayOfAccounts count] > 1) {
+        [arrayOfAccounts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+          ACAccount *acc=obj;
+          if([acc.username isEqual:userName]){
+            twitterAccount = [arrayOfAccounts objectAtIndex:idx];
+            *stop = YES;
+          }
+        }];
+      } else {
+        twitterAccount = [arrayOfAccounts firstObject];
       }
-    
-     else {
+      
+      NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/home_timeline.json"];
+      //NSDictionary *params = @{@"count" : count, @"since_id" : sinceId, @"max_id" : maxId};
+        
+      SLRequest *postRequest = [SLRequest
+                                requestForServiceType:SLServiceTypeTwitter
+                                requestMethod:SLRequestMethodGET
+                                URL:requestURL parameters:nil];
+        
+      postRequest.account = twitterAccount;
+        
+      [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        //NSLog(@"Twitter HTTP response: %i", [urlResponse statusCode]);
+        NSMutableDictionary *responseDictionary  = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:nil];
+          if (error) {
+            callback(@[@"TWT_RET_ERROR", [NSNull null]]);
+          } else {
+            callback(@[[NSNull null], responseDictionary]);
+          }
+        }
+      ];
+    } else {
       if (error) {
         callback(@[@"NO_TWT_ACCNT", [NSNull null]]);
       } else {
         callback(@[@"NO_TWT_ACCSS", [NSNull null]]);
       }
     }
-    }
-  
-    
   }];
 }
 

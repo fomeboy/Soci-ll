@@ -17,25 +17,32 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(getTwitterAccounts:(RCTResponseSenderBlock)callback) {
   
-  ACAccountStore *account = [[ACAccountStore alloc] init];
-  ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier: ACAccountTypeIdentifierTwitter];
+  ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+  ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier: ACAccountTypeIdentifierTwitter];
   
-  [account requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
+  [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
   
-  if (granted) {
-    NSArray *twitterAccounts = [account accountsWithAccountType:accountType];
+  if (granted == true)
+  {
+    NSArray *twitterAccounts = [accountStore accountsWithAccountType:accountType];
     NSMutableArray *accountIds = [[NSMutableArray alloc] init];
     
-    [twitterAccounts enumerateObjectsUsingBlock:^(id obj,
-                                              NSUInteger idx,
-                                              BOOL *stop) {
-      ACAccount *acc=obj;
-      [accountIds addObject: acc.username];
-      }
-    ];
-        
-    callback(@[[NSNull null], accountIds]);
+    // >> When user authorizes app access to Twitter accounts but hasn't yet created one on the device
+    ACAccount * account = [[accountStore accountsWithAccountType:accountType] lastObject];
+    if([account username]==NULL){
+      callback(@[@"NO_TWT_ACCNT", [NSNull null]]);
     } else {
+
+      [twitterAccounts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        ACAccount *acc=obj;
+        [accountIds addObject: acc.username];
+        }
+       ];
+    
+      callback(@[[NSNull null], accountIds]);
+    }
+    
+  } else {
       if (error) {
         callback(@[@"NO_TWT_ACCNT", [NSNull null]]);
       } else {

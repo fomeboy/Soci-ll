@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { NativeModules,
          TouchableHighlight,
          View,
+         Image,
+         WebView,
+         ListView,
          Text } from 'react-native'
 import { styles } from './styles.js'
 
@@ -9,29 +12,132 @@ export default class Feed extends Component {
 
   constructor (props) {
     super(props)
+
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+
     this._handlePress = this._handlePress.bind(this)
+    this._handleTimeline = this._handleTimeline.bind(this)
+    // this._calcTimePassed = this._calcTimePassed.bind(this)
   }
 
-  _handlePress () {
+  componentWillMount () {
     var TwitterAPI = NativeModules.TwitterAPI
 
-    TwitterAPI.getHomeTimelineForUser('TapTapToink', (error, data) => {
+    TwitterAPI.getHomeTimelineForUser(this.props.sel_account, (error, data) => {
       if (data) {
-        console.log('RECEBI DATA')
+        this._handleTimeline(data)
       } else {
         console.log(error)
       }
-    //  this.props.navigator.pop()
     })
+  }
+
+  _parseText (text, hashtags) {
+    var renderedText = []
+    var tokenized = text.split(' ')
+    var isMention
+    var isHash
+    var isUrl
+
+    for (var i = 0; i < tokenized.length; i = i + 1) {
+      isMention = tokenized[i].charAt(0) === '@'
+      isHash = tokenized[i].charAt(0) === '#'
+      isUrl = tokenized[i].substr(0, 4).toUpperCase() === 'HTTP'
+
+      if (!isMention && !isHash && !isUrl) {
+        renderedText.push({text: tokenized[i]})
+      } else {
+        null
+      }
+    }
+
+    return renderedText
+  }
+
+  _calcTimePassed (timeStr) {
+    var now = new Date()
+    var then = new Date(timeStr)
+    var elapsed = new Date(now - then)
+    var hours = elapsed.getHours()
+    var mins = elapsed.getMinutes()
+    var secs = elapsed.getSeconds()
+
+    if (hours > 24) {
+      return elapsed.format('MMDD')
+    } else {
+      if (hours > 0) {
+        return hours + 'h'
+      } else if (mins > 0) {
+        return mins + 'm'
+      } else {
+        return secs + 's'
+      }
+    }
+  }
+
+  _handleTimeline (timeline) {
+    this.props.handleSetTimeline(timeline)
+  }
+
+  _handlePress () {
+    //  this.props.navigator.pop()
   }
 
   render () {
     return (
-      <View style={styles.vew}>
-        <Text>Feed do caralho</Text>
-        <TouchableHighlight onPress={this._handlePress}>
-          <Text>This are my settings</Text>
-        </TouchableHighlight>
+      <View style={styles.view}>
+        {this.props.timeline !== null &&
+          <ListView style={styles.listView}
+            dataSource = {this.ds.cloneWithRows(this.props.timeline)}
+            renderRow = {(tweet) => {
+              return (
+                <View>
+                  <View style={styles.headerView}>
+                    {tweet.user.profile_image_url &&
+                    <Image
+                      source={{uri: tweet.user.profile_image_url}}
+                      style={styles.userImg}
+                    />
+                    }
+                    <View style={styles.userView}>
+                      <Text style={styles.userName}>{tweet.user.name}</Text>
+                      <Text style={styles.screenName}>{'@' + tweet.user.screen_name}</Text>
+                      <View style={styles.otherInfo}>
+                        <Text style={styles.creationTime}>{this._calcTimePassed(tweet.created_at)}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View>
+                    <Text style={styles.tweetText}>{tweet.text}
+                      {
+                        this._parseText(tweet.text, tweet.entities.hashtags).map((val) => { return (<Text style={styles.textHighlight}>{val.text}</Text>) })
+                      }
+                    </Text>
+                    { /* {tweet.entities.urls.length > 0 &&
+                      tweet.entities.urls.map((url) => {
+                        return (
+                        <WebView
+                          source={{uri: url.expanded_url}}
+                          style={styles.urls}
+                          automaticallyAdjustContentInsets={false}
+                          javaScriptEnabled={true}
+                          domStorageEnabled={true}
+                          decelerationRate='normal'
+                          onNavigationStateChange={this.onNavigationStateChange}
+                          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                          startInLoadingState={true}
+                          scalesPageToFit={true}
+                          />
+                        )
+                      })
+                    }
+                    */ }
+                  </View>
+              </View>
+              )
+            }}
+         />
+        }
       </View>
     )
   }

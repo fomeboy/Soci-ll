@@ -57,7 +57,6 @@ export default class Welcome extends Component {
   }
 
   _handleSelAccount (account) {
-    console.log('SELECTIOOO:' + account)
     if (account !== '') {
       this.props.handleSetSelAccount(account)
       this.props.navigator.push({id: 2})

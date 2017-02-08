@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: status_text_font,
     fontWeight: 'normal',
-    fontSize: 22,
+    fontSize: 18,
     color: light_text_color
   },
   status: {
