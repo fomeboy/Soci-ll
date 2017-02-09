@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
     width: 400,
     height: 400
   },
-  textHighlight: {
+  entityText: {
     fontFamily: status_text_font,
     fontWeight: '500',
     fontSize: 14,

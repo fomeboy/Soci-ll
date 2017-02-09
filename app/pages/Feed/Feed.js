@@ -32,25 +32,57 @@ export default class Feed extends Component {
     })
   }
 
-  _parseText (text, hashtags) {
+  _isEntity (idxArray, indice) {
+    var res = false
+    var parsedArray = JSON.parse(idxArray)
+
+    if (parsedArray !== undefined) {
+      for (var i = 0; i < parsedArray.length; i = i + 1) {
+        if (parsedArray[i].indices[0] === indice) {
+          res = true
+        }
+      }
+    }
+    return res
+  }
+
+  _parseText (text, hashtags, mentions, urls) {
     var renderedText = []
     var tokenized = text.split(' ')
     var isMention
     var isHash
     var isUrl
+    var head = 0
+    var space = ' '
 
     for (var i = 0; i < tokenized.length; i = i + 1) {
+      if (i === tokenized.length - 1) {
+        space = ''
+      }
       isMention = tokenized[i].charAt(0) === '@'
       isHash = tokenized[i].charAt(0) === '#'
       isUrl = tokenized[i].substr(0, 4).toUpperCase() === 'HTTP'
 
       if (!isMention && !isHash && !isUrl) {
-        renderedText.push({text: tokenized[i]})
+        renderedText.push({text: tokenized[i] + space, type: 'text'})
       } else {
-        null
+        if (isMention) {
+          if (this._isEntity(mentions, head)) {
+            renderedText.push({text: tokenized[i] + space, type: 'entity'})
+          }
+        } else if (isHash) {
+          if (this._isEntity(hashtags, head)) {
+            renderedText.push({text: tokenized[i] + space, type: 'entity'})
+          }
+        } else if (isUrl) {
+          if (this._isEntity(urls, head)) {
+            renderedText.push({text: tokenized[i] + space, type: 'entity'})
+          }
+        }
       }
-    }
 
+      head = head + tokenized[i].length + 1
+    }
     return renderedText
   }
 
@@ -108,9 +140,15 @@ export default class Feed extends Component {
                     </View>
                   </View>
                   <View>
-                    <Text style={styles.tweetText}>{tweet.text}
+                    <Text>
                       {
-                        this._parseText(tweet.text, tweet.entities.hashtags).map((val) => { return (<Text style={styles.textHighlight}>{val.text}</Text>) })
+                        this._parseText(tweet.text, JSON.stringify(tweet.entities.hashtags),
+                                        JSON.stringify(tweet.entities.user_mentions),
+                                        JSON.stringify(tweet.entities.urls)).map((val, i) => {
+                                          return val.type === 'text'
+                                            ? (<Text key={i} style={styles.tweetText}>{val.text}</Text>)
+                                            : (<Text key={i} style={styles.entityText}>{val.text}</Text>)
+                                        })
                       }
                     </Text>
                     { /* {tweet.entities.urls.length > 0 &&
