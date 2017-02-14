@@ -115,31 +115,25 @@ export default class Feed extends Component {
     //  this.props.navigator.pop()
   }
 
+  _getBiggerProfileImage (url) {
+    var size = '_bigger' // '' for original
+    var normalStringLength = 7 // '_normal'
+    var imageTypeIndex = url.lastIndexOf('.')
+
+    return url.slice(0, imageTypeIndex - normalStringLength) + size + url.slice(imageTypeIndex)
+  }
+
   render () {
     return (
       <View style={styles.view}>
         {this.props.timeline !== null &&
           <ListView style={styles.listView}
+            enableEmptySections = {true}
             dataSource = {this.ds.cloneWithRows(this.props.timeline)}
             renderRow = {(tweet) => {
               return (
                 <View>
-                  <View style={styles.headerView}>
-                    {tweet.user.profile_image_url &&
-                    <Image
-                      source={{uri: tweet.user.profile_image_url}}
-                      style={styles.userImg}
-                    />
-                    }
-                    <View style={styles.userView}>
-                      <Text style={styles.userName}>{tweet.user.name}</Text>
-                      <Text style={styles.screenName}>{'@' + tweet.user.screen_name}</Text>
-                      <View style={styles.otherInfo}>
-                        <Text style={styles.creationTime}>{this._calcTimePassed(tweet.created_at)}</Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View>
+                  <View style={styles.textView}>
                     <Text>
                       {
                         this._parseText(tweet.text, JSON.stringify(tweet.entities.hashtags),
@@ -151,25 +145,39 @@ export default class Feed extends Component {
                                         })
                       }
                     </Text>
-                    { /* {tweet.entities.urls.length > 0 &&
-                      tweet.entities.urls.map((url) => {
-                        return (
-                        <WebView
-                          source={{uri: url.expanded_url}}
-                          style={styles.urls}
-                          automaticallyAdjustContentInsets={false}
-                          javaScriptEnabled={true}
-                          domStorageEnabled={true}
-                          decelerationRate='normal'
-                          onNavigationStateChange={this.onNavigationStateChange}
-                          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                          startInLoadingState={true}
-                          scalesPageToFit={true}
-                          />
-                        )
-                      })
+                    <View style={styles.twtOptions}>
+                      <Image
+                        source={require('./img/reply.png')}
+                        style={styles.replyImg}
+                      />
+                      <Image
+                        source={require('./img/retweet.png')}
+                        style={styles.retweetImg}
+                      />
+                      <Image
+                        source={require('./img/like.png')}
+                        style={styles.likeImg}
+                      />
+                    </View>
+                  </View>
+                  <View style={styles.headerView}>
+                    { /*
+                    {tweet.user.profile_image_url &&
+                    <Image
+                      source={{uri: this._getBiggerProfileImage(tweet.user.profile_image_url)}}
+                      style={styles.userImg}
+                    />
                     }
                     */ }
+                    <View style={styles.userNameView}>
+                      <Text style={styles.userName} ellipsizeMode='tail' numberOfLines={1}>{tweet.user.name}</Text>
+                    </View>
+                    <View style={styles.screenNameView}>
+                      <Text style={styles.screenName}>{'@' + tweet.user.screen_name}</Text>
+                    </View>
+                    <View style={styles.createdAtView}>
+                      <Text style={styles.creationTime}>, {this._calcTimePassed(tweet.created_at)}</Text>
+                    </View>
                   </View>
               </View>
               )

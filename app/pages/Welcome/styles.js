@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { background_color, dark_text_color, account_msg_color, light_text_color, status_text_font } from '../Styles/genericStyle.js'
+import { background_color, dark_text_color, status_text_font } from '../Styles/genericStyle.js'
 
 export const styles = StyleSheet.create({
   view: {
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     fontFamily: status_text_font,
     fontWeight: 'normal',
     fontSize: 18,
-    color: light_text_color
+    color: dark_text_color
   },
   status: {
     flex: 5,
@@ -42,8 +42,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: status_text_font,
     fontWeight: 'normal',
-    fontSize: 16,
-    color: light_text_color
+    fontSize: 14,
+    color: dark_text_color
   },
   pickerView: {
     flex: 1
