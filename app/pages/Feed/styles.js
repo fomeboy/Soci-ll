@@ -36,11 +36,12 @@ export const styles = StyleSheet.create({
   },
   */
   userNameView: {
+    alignSelf: 'stretch',
     alignItems: 'flex-end',
     marginLeft: 5
   },
   userName: {
-    flex: 1,
+    // flex: 1,
     fontFamily: header_font,
     fontWeight: '300',
     fontSize: 13,
@@ -48,7 +49,6 @@ export const styles = StyleSheet.create({
     color: dark_text_color
   },
   screenNameView: {
-    alignSelf: 'stretch',
     alignItems: 'flex-start'
   },
   screenName: {

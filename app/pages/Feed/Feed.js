@@ -7,6 +7,7 @@ import { NativeModules,
          ListView,
          Text } from 'react-native'
 import { styles } from './styles.js'
+import persistStore from '../../data/persist_store.js'
 
 export default class Feed extends Component {
 
@@ -23,13 +24,30 @@ export default class Feed extends Component {
   componentWillMount () {
     var TwitterAPI = NativeModules.TwitterAPI
 
-    TwitterAPI.getHomeTimelineForUser(this.props.sel_account, (error, data) => {
-      if (data) {
-        this._handleTimeline(data)
-      } else {
-        console.log(error)
-      }
+    if (this.props.status === 'wifi' || this.props.status === 'cell') {
+      TwitterAPI.getHomeTimelineForUser(this.props.sel_account, (error, data) => {
+        if (data) {
+          this._handleTimeline(data)
+          this._storeLocally(data)
+        } else {
+          console.log(error)
+        }
+      })
+    } else {
+      //  local store
+    }
+  }
+
+  _storeLocally (data) {
+    data.map((rec, i) => {
+      persistStore.write(() => {
+        persistStore.create('tweet', {
+          id: rec.id,
+          tweet: JSON.stringify(rec)
+        })
+      })
     })
+    console.log('NUM RECS' + persistStore.objects('tweet').length)
   }
 
   _isEntity (idxArray, indice) {

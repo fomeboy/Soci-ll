@@ -88,7 +88,7 @@ export default class Welcome extends Component {
           <Text style={styles.accountMsgText}>{AccountMsgs[this.props.account_msg]}</Text>
         </View>
         <View style={styles.pickerView}>
-          {this.props.accounts !== null &&
+          {this.props.account_msg === 'SEL_TWT_ACCNT' &&
             <PickerIOS
               itemStyle={styles.picker}
               selectedValue={this.props.sel_account}

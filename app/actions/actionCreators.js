@@ -1,4 +1,4 @@
-import { SET_STATUS, SET_ACCOUNT_MSG, SET_SEL_ACCOUNT, SET_ACCOUNTS, SET_TIMELINE} from './actionTypes.js'
+import { SET_STATUS, SET_ACCOUNT_MSG, SET_SEL_ACCOUNT, SET_ACCOUNTS, SET_TIMELINE } from './actionTypes.js'
 
 export function setStatus (status) {
   return {

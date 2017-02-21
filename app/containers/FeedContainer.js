@@ -5,7 +5,8 @@ import Feed from '../pages/Feed/Feed.js'
 const mapStateToProps = (state) => {
   return {
     timeline: state.timeline,
-    sel_account: state.sel_account
+    sel_account: state.sel_account,
+    status: state.status
   }
 }
 
