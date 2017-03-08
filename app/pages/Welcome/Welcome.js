@@ -11,6 +11,7 @@ import { NativeModules,
 import { styles } from './styles.js'
 import { ValidStatus } from '../../actions/enums.js'
 import { AccountMsgs } from '../../ui_msgs/enums.js'
+import { initializeDatabase } from '../../data/db_mutators.js'
 
 export default class Welcome extends Component {
   constructor (props) {
@@ -38,6 +39,8 @@ export default class Welcome extends Component {
     NetInfo.fetch().done((reach) => {
       this._handleConnectionInfo(reach)
     })
+
+    initializeDatabase()
   }
 
   componentWillUnmount () {

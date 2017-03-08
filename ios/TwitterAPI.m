@@ -39,7 +39,7 @@ RCT_EXPORT_METHOD(postTweet:(NSString *)msg withUser:(NSString *)userName) {
 
 //RCT_EXPORT_METHOD(getHomeTimelineForAccount:(NSString * _Nonnull) totalTweets:(NSString * _Nullable)count sinceId:(NSString * _Nullable)sinceId maxId:(NSString * _Nullable)maxId)
 
-RCT_EXPORT_METHOD(getHomeTimelineForUser:(NSString * _Nonnull)userName returns:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(getHomeTimelineForUser:(NSString * _Nonnull)userName totalTweets:(NSString * _Nullable)count sinceId:(NSString * _Nullable)sinceId maxId:(NSString * _Nullable)maxId returns:(RCTResponseSenderBlock)callback) {
 
   __block ACAccount *twitterAccount;
   ACAccountStore *account = [[ACAccountStore alloc] init];
@@ -65,12 +65,17 @@ RCT_EXPORT_METHOD(getHomeTimelineForUser:(NSString * _Nonnull)userName returns:(
       }
       
       NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/home_timeline.json"];
-      //NSDictionary *params = @{@"count" : count, @"since_id" : sinceId, @"max_id" : maxId};
-        
+      // NSDictionary *params = @{@"count" : count, @"since_id" : sinceId, @"max_id" : maxId};
+      NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+      
+      if (count.length != 0) { params[@"count"] = count;}
+      if (sinceId.length != 0) { params[@"since_id"] = sinceId;}
+      if (maxId.length != 0) { params[@"max_id"] = maxId;}
+      
       SLRequest *postRequest = [SLRequest
                                 requestForServiceType:SLServiceTypeTwitter
                                 requestMethod:SLRequestMethodGET
-                                URL:requestURL parameters:nil];
+                                URL:requestURL parameters:params];
         
       postRequest.account = twitterAccount;
         
