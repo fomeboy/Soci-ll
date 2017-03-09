@@ -19,7 +19,7 @@
   NSURL *jsCodeLocation;
   
   #ifdef DEBUG
-    jsCodeLocation = [NSURL URLWithString:@"http://172.17.64.56:8081/index.ios.bundle?platform=ios&dev=true"];
+    jsCodeLocation = [NSURL URLWithString:@"http://172.17.70.148:8081/index.ios.bundle?platform=ios&dev=true"];
   #else
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   #endif

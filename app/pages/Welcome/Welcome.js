@@ -39,8 +39,6 @@ export default class Welcome extends Component {
     NetInfo.fetch().done((reach) => {
       this._handleConnectionInfo(reach)
     })
-
-    initializeDatabase()
   }
 
   componentWillUnmount () {
@@ -61,6 +59,7 @@ export default class Welcome extends Component {
 
   _handleSelAccount (account) {
     if (account !== '') {
+      initializeDatabase(account)
       this.props.handleSetSelAccount(account)
       this.props.navigator.push({id: 2})
     }

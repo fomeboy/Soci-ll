@@ -25,7 +25,7 @@ export default class Feed extends Component {
     var TwitterAPI = NativeModules.TwitterAPI
 
     if (this.props.status === 'wifi' || this.props.status === 'cell') {
-      TwitterAPI.getHomeTimelineForUser(this.props.sel_account, '', '', '', (error, data) => {
+      TwitterAPI.getHomeTimelineForUser(this.props.sel_account, '1000', '', '', (error, data) => {
         if (data) {
           this._handleTimeline(data)
           this._storeLocally(data)
@@ -48,6 +48,7 @@ export default class Feed extends Component {
       })
     })
     console.log('NUM RECS' + persistStore.objects('Tweet').length)
+    console.log('Path: ' + persistStore.path)
   }
 
   _isEntity (idxArray, indice) {
